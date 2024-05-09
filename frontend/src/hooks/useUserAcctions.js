@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { registerUserAsync } from "../store/users/slice";
+import { loginUserAsync, registerUserAsync } from "../store/users/slice";
 //import { useNavigate } from "react-router-dom";
 
 export const useUserActions = () => {
@@ -10,6 +10,10 @@ export const useUserActions = () => {
     dispatch(registerUserAsync(userData));
   };
 
+  const LoginUser = (userData) => {
+    dispatch(loginUserAsync(userData));
+  };
 
-  return { NewUser };
+
+  return { NewUser, LoginUser };
 };

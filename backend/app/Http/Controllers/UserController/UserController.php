@@ -23,4 +23,30 @@ class UserController extends Controller
 
         return response()->json(['message' => 'User register Succesful'], 201);
     }
+
+    public function loginUser(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        if (!$token = auth()->attempt($credentials)) {
+            return response()->json(['message' => 'Credenciales incorrectas'], 401);
+        }
+
+        $user = auth()->user(); // Obtén el usuario autenticado
+
+        return $this->respondWithTokenAndUser($token, $user);
+    }
+
+    protected function respondWithTokenAndUser($token, $user)
+    {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'user' => $user,
+        ]);
+    }
+
+
+
+
 }

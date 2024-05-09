@@ -22,5 +22,6 @@ Route::group(['prefix' => 'Rol', 'controller' => RolController::class], function
 
 Route::group(['prefix' => 'User', 'controller' => UserController::class], function () {
     Route::post('/CreateUser', 'createUser');
+    Route::post('/Login', 'loginUser');
 });
 

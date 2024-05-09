@@ -32,6 +32,26 @@ export const registerUserAsync = createAsyncThunk(
   }
 );
 
+export const loginUserAsync = createAsyncThunk(
+  "users/loginUser",
+  async (userData) => {
+    try {
+      const response = await axios.post(
+        `${VITE_URL_API}/User/Login`,
+        userData
+      );
+      const authData = {
+        access_token: response.data.access_token,
+        user: response.data.user,
+      };
+      localStorage.setItem("auth", JSON.stringify(authData));
+      return authData; // Devuelve el objeto con el token y el usuario
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+);
+
 
 export const usersSlice = createSlice({
   name: "users",
@@ -47,6 +67,19 @@ export const usersSlice = createSlice({
         toast.success("Successfully!");
       })
       .addCase(registerUserAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+        toast.error("This didn't work.");
+      })
+      .addCase(loginUserAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(loginUserAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.auth = action.payload;
+        toast.success("Successfully!");
+      })
+      .addCase(loginUserAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
         toast.error("This didn't work.");
