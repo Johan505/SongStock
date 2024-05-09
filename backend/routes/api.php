@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\RolController\RolController;
+use App\Http\Controllers\UserController\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,3 +19,8 @@ use Illuminate\Support\Facades\Route;
 Route::group(['prefix' => 'Rol', 'controller' => RolController::class], function () {
     Route::post('/CreateRol', 'createRol');
 });
+
+Route::group(['prefix' => 'User', 'controller' => UserController::class], function () {
+    Route::post('/CreateUser', 'createUser');
+});
+
