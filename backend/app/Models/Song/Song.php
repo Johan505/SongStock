@@ -19,6 +19,7 @@ class Song extends Model
         'kbps',
         'gender',
         'artist',
-        'img'
+        'img',
+        'song'
     ];
 }

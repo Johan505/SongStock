@@ -12,10 +12,17 @@ class SongController extends Controller
     //
     public function createSong(createSong $request)
     {
-        // La validación se maneja automáticamente por Laravel
 
-        $songData = $request->all();
-        Song::create($songData);
+        $validatedData = $request->validated();
+
+        if ($request->hasFile('song')) {
+            $publicacion = $request->file('song');
+            $publicacionPath = $publicacion->storeAs('song', 'song' . time() . '.' . $publicacion->getClientOriginalExtension(), 'public');
+            $validatedData['song'] = $publicacionPath;
+        }
+
+        $song = new Song($validatedData);
+        $song->save();
         return response()->json(['message' => 'Song register Succesful'], 201);
     }
 }

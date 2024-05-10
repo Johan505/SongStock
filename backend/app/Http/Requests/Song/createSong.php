@@ -24,11 +24,12 @@ class createSong extends FormRequest
         return [
             'name' => ['required', 'string'],
             'price' => ['required', 'string'],
-            'duration' =>  ['required', 'string'],
-            'mb' => ['required', 'string'],
-            'kbps' => ['required', 'string'],
+            'duration' =>  ['required'],
+            'mb' => ['required'],
+            'kbps' => ['required'],
             'gender' => ['required', 'string'],
             'artist' => ['required', 'string'],
+            'img' => ['required', 'string'],
         ];
     }
 
@@ -49,9 +50,10 @@ class createSong extends FormRequest
             'kbps.required' => 'ID is required.',
 
             'gender.required' => 'Email is required.',
-            'gender.email' => 'Email should be a valid email.',
 
             'artist.required' => 'Phone is required.',
+
+            'img.required' => 'Phone is required.',
 
         ];
     }

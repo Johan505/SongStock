@@ -1,5 +1,6 @@
 import { useDispatch } from "react-redux";
-import { registerSongAsync } from "../store/users/slice";
+import { registerSongAsync } from "../store/songs/slice";
+
 
 export const useSongActions = () => {
     const dispatch = useDispatch();
