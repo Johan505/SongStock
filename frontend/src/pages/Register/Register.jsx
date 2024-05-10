@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useUserActions } from "../../hooks/useUserAcctions";
+import { useUserActions } from "../../hooks/useUserActions";
 import { useSelector } from "react-redux";
 
 export const Register = () => {

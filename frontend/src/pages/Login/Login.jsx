@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useUserActions } from "../../hooks/useUserAcctions";
+import { useUserActions } from "../../hooks/useUserActions";
 import { Link, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 
@@ -76,7 +76,7 @@ export const Login = () => {
       <div className="link-register">
         <p>
           Don't have an account?{" "}
-          <Link to="/register-user" className="link">
+          <Link to="/user-register" className="link">
             Sign up
           </Link>
         </p>

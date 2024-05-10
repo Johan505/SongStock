@@ -56,7 +56,14 @@ export const loginUserAsync = createAsyncThunk(
 export const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.auth = { access_token: false, user: null };
+      state.status = "idle";
+      state.error = null;
+      localStorage.removeItem("auth");
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUserAsync.pending, (state) => {
@@ -87,6 +94,38 @@ export const usersSlice = createSlice({
   },
 });
 
-export const {} = usersSlice.actions;
+
+export const registerSongAsync = createAsyncThunk(
+  "songs/registerSong",
+  async (songData) => {
+    try {
+      const response = await axios.post(
+        `${VITE_URL_API}/Song/CreateSong`,
+        songData
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+);
+
+
+export const registerVinylDiscAsync = createAsyncThunk(
+  "vinyldisc/registerVinylDisc",
+  async (vinyldiscData) => {
+    try {
+      const response = await axios.post(
+        `${VITE_URL_API}/VinylDisc/CreateVinylDisc`,
+        vinyldiscData
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+);
+
+export const {logout} = usersSlice.actions;
 
 export default usersSlice.reducer;
