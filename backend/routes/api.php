@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\RolController\RolController;
+use App\Http\Controllers\SongController\SongController;
 use App\Http\Controllers\UserController\UserController;
+use App\Http\Controllers\VinylDiscController\VinylDiscController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -22,5 +24,15 @@ Route::group(['prefix' => 'Rol', 'controller' => RolController::class], function
 
 Route::group(['prefix' => 'User', 'controller' => UserController::class], function () {
     Route::post('/CreateUser', 'createUser');
+    Route::post('/Login', 'loginUser');
+});
+
+
+Route::group(['prefix' => 'Song', 'controller' => SongController::class], function () {
+    Route::post('/CreateSong', 'createSong');
+});
+
+Route::group(['prefix' => 'VinylDisc', 'controller' => VinylDiscController::class], function () {
+    Route::post('/CreateVinylDisc', 'createVinylDisc');
 });
 
