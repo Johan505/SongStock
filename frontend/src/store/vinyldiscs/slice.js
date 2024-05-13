@@ -8,15 +8,15 @@ const initialState = {
   error: null,
 };
 
-const { VITE_URL_API } = import.meta.env;
-
-export const registerSongAsync = createAsyncThunk(
-    "songs/registerSong",
-    async (songData) => {
+const { VITE_URL_API } = import.meta.env;  
+  
+  export const registerVinylDiscAsync = createAsyncThunk(
+    "vinyldisc/registerVinylDisc",
+    async (vinyldiscData) => {
       try {
         const response = await axios.post(
-          `${VITE_URL_API}/Song/CreateSong`,
-          songData
+          `${VITE_URL_API}/VinylDisc/CreateVinylDisc`,
+          vinyldiscData
         );
         return response.data;
       } catch (error) {
@@ -25,20 +25,20 @@ export const registerSongAsync = createAsyncThunk(
     }
   );
   
-export const songsSlice = createSlice({
-  name: "songs",
+export const vinyldiscsSlice = createSlice({
+  name: "vinyldiscs",
   initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(registerSongAsync.pending, (state) => {
+      .addCase(registerVinylDiscAsync.pending, (state) => {
         state.status = "loading";
       })
-      .addCase(registerSongAsync.fulfilled, (state) => {
+      .addCase(registerVinylDiscAsync.fulfilled, (state) => {
         state.status = "succeeded";
         toast.success("Successfully!");
       })
-      .addCase(registerSongAsync.rejected, (state, action) => {
+      .addCase(registerVinylDiscAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
         toast.error("This didn't work.");
@@ -46,6 +46,6 @@ export const songsSlice = createSlice({
   },
 });
 
-export const {} = songsSlice.actions;
+export const {} = vinyldiscsSlice.actions;
 
-export default songsSlice.reducer;
+export default vinyldiscsSlice.reducer;
