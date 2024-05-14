@@ -4,6 +4,7 @@ import axios from "axios";
 
 // Inicializa el estado usando la función authLocal
 const initialState = {
+  allsongs: [],
   status: "idle",
   error: null,
 };
@@ -17,6 +18,20 @@ export const registerSongAsync = createAsyncThunk(
         const response = await axios.post(
           `${VITE_URL_API}/Song/CreateSong`,
           songData
+        );
+        return response.data;
+      } catch (error) {
+        throw new Error(error.message);
+      }
+    }
+  );
+
+  export const getAllSongsAsync = createAsyncThunk(
+    "song/getAllSongs",
+    async () => {
+      try {
+        const response = await axios.get(
+          `${VITE_URL_API}/Song/GetAllSongs`
         );
         return response.data;
       } catch (error) {

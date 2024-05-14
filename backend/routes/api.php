@@ -29,10 +29,15 @@ Route::group(['prefix' => 'User', 'controller' => UserController::class], functi
 
 
 Route::group(['prefix' => 'Song', 'controller' => SongController::class], function () {
+    Route::get('/GetAllSongs', 'getAllSongs');
     Route::post('/CreateSong', 'createSong');
 });
 
 Route::group(['prefix' => 'VinylDisc', 'controller' => VinylDiscController::class], function () {
+    Route::get('/GetAllVinylDisc', 'getAllVinylDisc');
     Route::post('/CreateVinylDisc', 'createVinylDisc');
+    Route::get('/GetVinylById/{id}', 'showVinylDisc');
+    Route::put('/UpdateVinylDisc/{id}', 'updateVinylDisc');
+    Route::delete('/DeleteVinylDisc/{id}', 'deleteVinylDisc');
 });
 

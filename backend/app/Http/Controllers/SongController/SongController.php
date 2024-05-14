@@ -9,6 +9,11 @@ use Illuminate\Http\Request;
 
 class SongController extends Controller
 {
+    public function getAllSongs()
+    {
+        $song = Song::all();
+        return $song;
+    }
     //
     public function createSong(createSong $request)
     {

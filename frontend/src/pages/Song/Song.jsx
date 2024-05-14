@@ -61,7 +61,6 @@ export const RegisterSong = () => {
           kbps: kbps,
           [name]: file
         });
-
         // Limpiar el objeto URL después de su uso
         URL.revokeObjectURL(audioUrl);
       };

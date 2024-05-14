@@ -1,21 +1,26 @@
 import { useSelector } from "react-redux";
-import { useUserActions } from "../../hooks/useUserActions";
+import { useVinylDiscActions } from "../../hooks/useVinylDiscActions";
+import { useEffect } from "react";
 
 export const Home = () => {
-    const { LogoutUser } = useUserActions();
-    const user = useSelector((state) => state.users.auth.user);
-    return(
-        <>
-            hola {user?.name}
+  const { getAllVinylDisc } = useVinylDiscActions();
+  const { allvinyls, status } = useSelector((state) => state.vinyldiscs);
 
-            {user ? 
-            <button className="button-logout" onClick={LogoutUser}>
-            <img src="/assets/icons/logout.svg" alt="logout" />
-            <p className="small-medium lg:base-medium">Logout</p>
-          </button>
-          : ""
-          }
-        </>
+  useEffect(() => {
+    getAllVinylDisc();
+  }, []);
 
-    )
-}
+  if (!allvinyls || status === "loading")
+    return <div className="loader">loading.....</div>;
+
+  return (
+    <div>
+      {allvinyls.map((vinyl) => (
+        <div key={vinyl.id}>
+          <p>{vinyl.name}</p>
+          <p>{vinyl.artist}</p>
+        </div>
+      ))}
+    </div>
+  );
+};

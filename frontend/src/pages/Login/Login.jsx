@@ -35,15 +35,6 @@ export const Login = () => {
     <div className="container-login">
       <div className="info-login">
         <i className="fa-solid fa-earth-americas"></i>
-        <div className="logo">
-          <img
-            src="/assets/icons/favicon.ico"
-            alt="logo"
-            width={30}
-            height={30}
-          />
-          Econnect
-        </div>
       </div>
 
       <form className="form-login" onSubmit={handleSubmit}>
@@ -53,7 +44,7 @@ export const Login = () => {
           name="email"
           value={formData.email}
           onChange={handleInputChange}
-          className="form-input"
+          className="form-input"z
         />
 
         <label className="title-input">Password:</label>

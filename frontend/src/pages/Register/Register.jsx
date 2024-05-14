@@ -32,7 +32,7 @@ export const Register = () => {
         <div className="register">
           <div className="info-login">
             <i className="fa-solid fa-earth-americas"></i>
-            <h2>Sign up to PoliApuestas</h2>
+            <h2>Sign up to SongStock</h2>
           </div>
           <form onSubmit={handleSubmit} className="form-register">
             <div className="container-cols">

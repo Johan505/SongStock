@@ -4,7 +4,7 @@ namespace App\Http\Requests\VinylDisc;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class createVinylDisc extends FormRequest
+class ReqVinylDisc extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
