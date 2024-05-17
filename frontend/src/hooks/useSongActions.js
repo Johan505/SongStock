@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { getAllSongsAsync, registerSongAsync } from "../store/songs/slice";
+import { getAllSongsAsync, registerSongAsync, updateSongAsync, getSongAsync } from "../store/songs/slice";
 
 
 export const useSongActions = () => {
@@ -9,9 +9,21 @@ export const useSongActions = () => {
       dispatch(getAllSongsAsync());
    };
   
-    const NewSong = (songData) => {
+    const createSong = (songData) => {
       dispatch(registerSongAsync(songData));
     };  
+
+    const NewSong = async (songData) => {
+      return dispatch(registerSongAsync(songData));
+    }; 
+
+    const updatesong = async (formData) => {
+      return dispatch(updateSongAsync(formData));
+    };
+
+    const searchid = (id)  => {
+      dispatch(getSongAsync(id));
+   };
   
-    return { NewSong };
+    return { createSong, NewSong, updatesong, getAllSongs, searchid };
   };

@@ -31,8 +31,8 @@ export const updateVinylDiscAsync = createAsyncThunk(
   "vinyldisc/updateVinylDisc",
   async (formData) => {
     try {
-      const response = await axios.put(
-        `${VITE_URL_API}/VinylDisc/UpdateVinylDisc/${formData.id}`,
+      const response = await axios.post(
+        `${VITE_URL_API}/VinylDisc/UpdateVinylDisc/${formData.get("id")}`,
         formData
       );
       return response.data;

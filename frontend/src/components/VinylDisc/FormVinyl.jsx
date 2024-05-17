@@ -15,7 +15,7 @@ export const FormVinyl = ({ action, vinyl }) => {
       releaseyear: "",
       price: "",
       amount: "",
-      img: "",
+      img: null,
       format: "",
       description: "",
       state: "",
@@ -44,7 +44,16 @@ export const FormVinyl = ({ action, vinyl }) => {
   
     const handleSubmit = async (e) => {
       e.preventDefault();
-      const response = action === "Update" ? await updatevini(formData): await createVinylDisc(formData);
+
+      const formDataToSend = new FormData();
+  
+      for (const key in formData) {
+        if (!formData[key]) continue;
+  
+        formDataToSend.append(key, formData[key]);
+      }
+
+      const response = action === "Update" ? await updatevini(formDataToSend): await createVinylDisc(formDataToSend);
       if (response.meta.requestStatus === "fulfilled") {
         if (action === "Create") {
           navigate("/");
@@ -57,6 +66,11 @@ export const FormVinyl = ({ action, vinyl }) => {
     const handleInputChange = (e) => {
       const { name, value } = e.target;
       setFormData({ ...formData, [name]: value });
+    };
+
+    const handleFileChange = (e) => {
+      const { name, files } = e.target;
+      setFormData({ ...formData, [name]: files[0] });
     };
 
     return(
@@ -114,10 +128,9 @@ export const FormVinyl = ({ action, vinyl }) => {
 
             <label>img:</label>
             <input
-              type="text"
+              type="file"
               name="img"
-              value={formData.img}
-              onChange={handleInputChange}
+              onChange={handleFileChange}
               className="form-input"
             />
 

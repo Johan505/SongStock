@@ -22,6 +22,12 @@ class VinylDiscController extends Controller
         // La validación se maneja automáticamente por Laravel
         $vinyldiscData = $request->all();
 
+        if ($request->hasFile('img')) { // Verifica si hay un archivo de imagen en la solicitud
+            $imageFile = $request->file('img'); // Obtiene el archivo de imagen de la solicitud
+            $imagePath = $imageFile->storeAs('images', 'image' . time() . '.' . $imageFile->getClientOriginalExtension(), 'public'); // Almacena el archivo de imagen
+            $vinyldiscData['img'] = $imagePath; // Asigna la ruta del archivo de imagen al atributo 'img' en los datos validados
+        }
+
         VinylDisc::create($vinyldiscData);
 
         return response()->json(['message' => 'Vinyl Disc register Succesful'], 201);

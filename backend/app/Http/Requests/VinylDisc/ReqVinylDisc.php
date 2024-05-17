@@ -27,7 +27,7 @@ class ReqVinylDisc extends FormRequest
             'releaseyear' =>  ['required', 'date'],
             'price' => ['required', 'string'],
             'amount' => ['required', 'string'],
-            'img' => ['required', 'string'],
+            'img' => ['required'],
             'format' => ['required', 'string'],
             'description' => ['required', 'string'],
             'state' => ['required', 'string'],

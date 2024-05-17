@@ -4,7 +4,7 @@ namespace App\Http\Requests\Song;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class createSong extends FormRequest
+class ReqSong extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -29,7 +29,8 @@ class createSong extends FormRequest
             'kbps' => ['required'],
             'gender' => ['required', 'string'],
             'artist' => ['required', 'string'],
-            'img' => ['required', 'string'],
+            'img' =>  ['required'],
+            'song' =>  ['required']
         ];
     }
 
@@ -53,7 +54,9 @@ class createSong extends FormRequest
 
             'artist.required' => 'Phone is required.',
 
-            'img.required' => 'Phone is required.',
+            'img.required' => 'img is required.',
+
+            'song.required' => 'song is required.',
 
         ];
     }

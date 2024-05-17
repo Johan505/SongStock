@@ -16,7 +16,7 @@ export const useUserActions = () => {
 
   const LogoutUser = () => {
     dispatch(logout());
-    navigate("/login-user");
+    navigate("/");
   };
 
 

@@ -32,7 +32,9 @@ class UserController extends Controller
             return response()->json(['message' => 'Credenciales incorrectas'], 401);
         }
 
-        $user = auth()->user(); // Obtén el usuario autenticado
+        $user = auth()->user();
+        $user = User::find($user->id);
+        $user->load('role');
 
         return $this->respondWithTokenAndUser($token, $user);
     }

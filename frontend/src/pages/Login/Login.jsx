@@ -24,12 +24,25 @@ export const Login = () => {
   };
 
   const { status } = useSelector((state) => state.users);
-  const user = useSelector((state) => state.users.auth.access_token);
+  const {access_token, user} = useSelector((state) => state.users.auth);
+
   useEffect(() => {
-    if (user != false) {
-      navigate("/");
+    if (access_token) {
+      switch (user.role.rol) {
+        case "Admin":
+          navigate("/admin");
+          break;
+        case "User":
+          navigate("/");
+          break;
+        case "Provider":
+          navigate("/provider");
+          break;
+        default:
+          break;
+      }
     }
-  }, [user]);
+  }, [access_token, user, navigate]);
 
   return (
     <div className="container-login">
@@ -44,7 +57,7 @@ export const Login = () => {
           name="email"
           value={formData.email}
           onChange={handleInputChange}
-          className="form-input"z
+          className="form-input"
         />
 
         <label className="title-input">Password:</label>
@@ -66,7 +79,7 @@ export const Login = () => {
       </form>
       <div className="link-register">
         <p>
-          Don't have an account?{" "}
+          Do not have an account?{" "}
           <Link to="/user-register" className="link">
             Sign up
           </Link>
