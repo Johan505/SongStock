@@ -18,7 +18,7 @@ if (!allsongs || songStatus === "loading")
   return (
     <div>
         <p>ADMIN</p>
-        <Link to="/song/song-register1">Add Song</Link>
+        <Link to="/song/song-register">Add Song</Link>
         <div>
         {allsongs.map((song) => (
           <div key={song.id}>
