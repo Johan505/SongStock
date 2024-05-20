@@ -2,6 +2,7 @@
 
 namespace App\Models\VinylDisc;
 
+use App\Models\User\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,6 +23,12 @@ class VinylDisc extends Model
         'description',
         'state',
         'condition',
-        'observations'
+        'observations',
+        'id_user'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_user');
+    }
 }

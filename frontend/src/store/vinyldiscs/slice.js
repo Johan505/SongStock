@@ -15,6 +15,7 @@ const { VITE_URL_API } = import.meta.env;
 export const registerVinylDiscAsync = createAsyncThunk(
   "vinyldisc/registerVinylDisc",
   async (vinyldiscData) => {
+    
     try {
       const response = await axios.post(
         `${VITE_URL_API}/VinylDisc/CreateVinylDisc`,
@@ -62,6 +63,20 @@ export const getAllVinylDiscAsync = createAsyncThunk(
     try {
       const response = await axios.get(
         `${VITE_URL_API}/VinylDisc/GetAllVinylDisc`
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+);
+
+export const deleteVinylDisc = createAsyncThunk(
+  "vinyldisc/deleteVinylDisc",
+  async (id) => {
+    try {
+      const response = await axios.delete(
+        `${VITE_URL_API}/VinylDisc/DeleteVinylDisc/${id}`
       );
       return response.data;
     } catch (error) {
@@ -120,6 +135,21 @@ export const vinyldiscsSlice = createSlice({
         state.allvinyls = action.payload;
       })
       .addCase(getAllVinylDiscAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(deleteVinylDisc.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteVinylDisc.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const id = action.payload;
+        const filteredSong = state.allvinyls.filter(song=>{
+          return song.id!=id
+        });
+        state.allvinyls=[...filteredSong]
+      })
+      .addCase(deleteVinylDisc.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })

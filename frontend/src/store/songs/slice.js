@@ -31,8 +31,8 @@ export const registerSongAsync = createAsyncThunk(
     "song/updateSong",
     async (formData) => {
       try {
-        const response = await axios.put(
-          `${VITE_URL_API}/Song/UpdateSong/${formData.id}`,
+        const response = await axios.post(
+          `${VITE_URL_API}/Song/UpdateSong/${formData.get("id")}`,
           formData
         );
         return response.data;
@@ -69,6 +69,20 @@ export const registerSongAsync = createAsyncThunk(
       }
     }
   );
+
+export const deleteSong = createAsyncThunk(
+  "songs/deleteSong",
+  async (id) => {
+    try {
+      const response = await axios.delete(
+        `${VITE_URL_API}/Song/DeleteSong/${id}`
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+);
   
 export const songsSlice = createSlice({
   name: "songs",
@@ -105,7 +119,7 @@ export const songsSlice = createSlice({
       })
       .addCase(getSongAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.vinylid = action.payload;
+        state.songid = action.payload;
       })
       .addCase(getSongAsync.rejected, (state, action) => {
         state.status = "failed";
@@ -117,9 +131,24 @@ export const songsSlice = createSlice({
       })
       .addCase(getAllSongsAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.allvinyls = action.payload;
+        state.allsongs = action.payload;
       })
       .addCase(getAllSongsAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(deleteSong.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteSong.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        const id = action.payload;
+        const filteredSong = state.allsongs.filter(song=>{
+          return song.id!=id
+        });
+        state.allsongs=[...filteredSong]
+      })
+      .addCase(deleteSong.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })

@@ -12,12 +12,14 @@ class VinylDiscController extends Controller
     public function getAllVinylDisc()
     {
         $vinylDisc = VinylDisc::all();
+        $vinylDisc->load('user');
         return $vinylDisc;
     }
 
     //
     public function createVinylDisc(ReqVinylDisc $request)
     {
+
 
         // La validación se maneja automáticamente por Laravel
         $vinyldiscData = $request->all();
@@ -27,6 +29,7 @@ class VinylDiscController extends Controller
             $imagePath = $imageFile->storeAs('images', 'image' . time() . '.' . $imageFile->getClientOriginalExtension(), 'public'); // Almacena el archivo de imagen
             $vinyldiscData['img'] = $imagePath; // Asigna la ruta del archivo de imagen al atributo 'img' en los datos validados
         }
+
 
         VinylDisc::create($vinyldiscData);
 
@@ -57,6 +60,12 @@ class VinylDiscController extends Controller
     public function deleteVinylDisc($id)
     {
         $vinylDisc = VinylDisc::destroy($id);
-        return $vinylDisc;
+        return $id;
+    }
+
+    public function getVinylDiscsByUserId($userId)
+    {
+        $vinylDiscs = VinylDisc::where('id_user', $userId)->get();
+        return response()->json($vinylDiscs);
     }
 }

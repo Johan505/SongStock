@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { getVinylDiscAsync, registerVinylDiscAsync, updateVinylDiscAsync,getAllVinylDiscAsync } from "../store/vinyldiscs/slice";
+import { getVinylDiscAsync, registerVinylDiscAsync, updateVinylDiscAsync,getAllVinylDiscAsync, deleteVinylDisc } from "../store/vinyldiscs/slice";
 
 export const useVinylDiscActions = () => {
     const dispatch = useDispatch();
@@ -19,6 +19,10 @@ export const useVinylDiscActions = () => {
     const getAllVinylDisc = ()  => {
       dispatch(getAllVinylDiscAsync());
    };
+
+   const dropVinylDisc = (id)  => {
+    dispatch(deleteVinylDisc(id));
+ };
   
-    return { createVinylDisc, updatevini, searchid, getAllVinylDisc };
+    return { createVinylDisc, updatevini, searchid, getAllVinylDisc, dropVinylDisc };
 };

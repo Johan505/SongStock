@@ -5,6 +5,7 @@ namespace App\Http\Controllers\SongController;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Song\ReqSong;
 use App\Models\Song\Song;
+use Illuminate\Http\Request;
 
 class SongController extends Controller
 {
@@ -13,7 +14,7 @@ class SongController extends Controller
         $song = Song::all();
         return $song;
     }
-    //
+
     public function createSong(ReqSong $request)
 {
     $validatedData = $request->validated();
@@ -24,42 +25,54 @@ class SongController extends Controller
         $validatedData['song'] = $songPath;
     }
 
-    if ($request->hasFile('img')) { // Verifica si hay un archivo de imagen en la solicitud
-        $imageFile = $request->file('img'); // Obtiene el archivo de imagen de la solicitud
-        $imagePath = $imageFile->storeAs('images', 'image' . time() . '.' . $imageFile->getClientOriginalExtension(), 'public'); // Almacena el archivo de imagen
-        $validatedData['img'] = $imagePath; // Asigna la ruta del archivo de imagen al atributo 'img' en los datos validados
+    if ($request->hasFile('img')) {
+        $imageFile = $request->file('img');
+        $imagePath = $imageFile->storeAs('images', 'image' . time() . '.' . $imageFile->getClientOriginalExtension(), 'public');
+        $validatedData['img'] = $imagePath;
     }
 
-    $song = new Song($validatedData); // Crea una nueva instancia de Song con los datos validados
-    $song->save(); // Guarda la canción en la base de datos
+    $song = new Song($validatedData);
+    $song->save();
 
-    return response()->json(['message' => 'Song register Successful'], 201); // Retorna una respuesta exitosa
+    return response()->json(['message' => 'Song register Successful', 'id' => $song->id], 201);
 }
 
-public function updateSong(ReqSong $request, $id)
+    public function updateSong(ReqSong $request, $id)
     {
-        // Recupera el registro existente
-        $Song = Song::findOrFail($id);
+        $song = Song::find($id);
 
-        // Aplica las validaciones
+        if (!$song) {
+            return response()->json(['message' => 'Song not found'], 404);
+        }
+
         $validatedData = $request->validated();
 
-        // Actualiza los datos del registro
-        $Song->update($validatedData);
+        if ($request->hasFile('song')) {
+            $songFile = $request->file('song');
+            $songPath = $songFile->storeAs('song', 'song' . time() . '.' . $songFile->getClientOriginalExtension(), 'public');
+            $validatedData['song'] = $songPath;
+        }
 
-        return response()->json(['message' => 'Song updated Succesfully'], 200);
+        if ($request->hasFile('img')) {
+            $imageFile = $request->file('img');
+            $imagePath = $imageFile->storeAs('images', 'image' . time() . '.' . $imageFile->getClientOriginalExtension(), 'public');
+            $validatedData['img'] = $imagePath;
+        }
+
+        $song->update($validatedData);
+
+        return response()->json(['message' => 'Song updated Successfully'], 200);
     }
 
     public function showSong($id)
     {
-        $Song = Song::find($id);
-        return $Song;
+        $song = Song::find($id);
+        return $song;
     }
 
     public function deleteSong($id)
     {
-        $Song = Song::destroy($id);
-        return $Song;
+        $song = Song::destroy($id);
+        return $id;
     }
-
 }

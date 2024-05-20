@@ -32,7 +32,8 @@ class ReqVinylDisc extends FormRequest
             'description' => ['required', 'string'],
             'state' => ['required', 'string'],
             'condition' => ['required', 'string'],
-            'observations' => ['required', 'string']
+            'observations' => ['required', 'string'],
+            'id_user' => ['required']
         ];
     }
 

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { getAllSongsAsync, registerSongAsync, updateSongAsync, getSongAsync } from "../store/songs/slice";
+import { getAllSongsAsync, registerSongAsync, updateSongAsync, getSongAsync, deleteSong } from "../store/songs/slice";
 
 
 export const useSongActions = () => {
@@ -24,6 +24,10 @@ export const useSongActions = () => {
     const searchid = (id)  => {
       dispatch(getSongAsync(id));
    };
+
+   const dropSong = (id)  => {
+    dispatch(deleteSong(id));
+ };
   
-    return { createSong, NewSong, updatesong, getAllSongs, searchid };
+    return { createSong, NewSong, updatesong, getAllSongs, searchid, dropSong };
   };
