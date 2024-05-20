@@ -20,6 +20,14 @@ class SongControllerTest extends TestCase
      *
      * @return void
      */
+    /**
+     * Test the creation of a song.
+     *
+     * This method tests the song creation endpoint by sending a POST request
+     * with song data and asserting the response status.
+     *
+     * @return void
+     */
     public function test_create_song()
     {
         // Data for the song to be used in the test
