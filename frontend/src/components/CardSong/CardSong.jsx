@@ -2,11 +2,21 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import Sound from "react-sound";
 import { useValidators } from "../../hooks/useValidators";
+import { useSongActions } from "../../hooks/useSongActions";
+import { useSelector } from "react-redux";
 const { VITE_URL_API_IMG } = import.meta.env;
 
 export const CardSong = ({ songs }) => {
   const { isUserAuthenticated } = useValidators();
+  const { addSongToFavorites } = useSongActions();
   const [playingSong, setPlayingSong] = useState(null);
+  const user = useSelector((state) => state.users.auth.user);
+
+  const [formData, setFormData] = useState({
+    id: null,
+    user_id: user.id,
+    song_id: "",
+  });
 
   const handlePlayStop = (songId) => {
     if (playingSong === songId) {
@@ -14,6 +24,14 @@ export const CardSong = ({ songs }) => {
     } else {
       setPlayingSong(songId);
     }
+  };
+
+  const handleAddToFavorites = (songId) => {
+    const favoriteData = {
+      user_id: user.id,
+      song_id: songId,
+    };
+    addSongToFavorites(favoriteData);
   };
 
   return (
@@ -37,6 +55,9 @@ export const CardSong = ({ songs }) => {
                 onFinishedPlaying={() => setPlayingSong(null)}
               />
             )}
+            <button onClick={() => handleAddToFavorites(song.id)}>
+              Add to Favorites
+            </button>
           </div>
         ))}
       </div>

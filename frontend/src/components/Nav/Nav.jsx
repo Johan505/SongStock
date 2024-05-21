@@ -16,7 +16,7 @@ export const Nav = () => {
             <>
            <Link>Songs</Link>
            <Link>Playlists</Link>
-           <Link>Favorites</Link>
+           <Link to='/song/favorites'>Favorites</Link>
            <Link>Cart</Link>
            </>
           )}
@@ -29,7 +29,7 @@ export const Nav = () => {
           )}
           {isUserRolProvider() && (
             <>
-           <Link>My Posts</Link>
+           <Link to = '/vinyldisc/myposts/'>My Posts</Link>
            <Link>Requests</Link>
            <Link to ='/vinyldisc/vinyldisc-register'>Add Vinyl</Link>
            </>

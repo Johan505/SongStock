@@ -10,6 +10,8 @@ import { UpdateSong } from "../pages/UpdateSong/UpdateSong";
 import { RegisterSong } from "../pages/Song/Song";
 import { DetailsSong } from "../pages/DetailsSong/DetailsSong";
 import { DetailsVinyls } from "../pages/DetailsVinyls/DetailsVinyls";
+import { MyPost } from "../pages/MyPost/MyPost";
+import { Favorites } from "../pages/Favorites/Favorites";
 
 export const AppRouter = () => {
  
@@ -23,9 +25,12 @@ export const AppRouter = () => {
         <Route path="/song/song-register" element={<RegisterSong />} />
         <Route path="/song/song-edit/:id" element={<UpdateSong />} />
         <Route path="/details-song/:id" element={<DetailsSong />} />
+        <Route path="/song/favorites" element={<Favorites />} />
         <Route path="/vinyldisc/vinyldisc-register" element={<RegisterVinylDisc />} />
         <Route path="/vinyldisc/vinyldisc-edit/:id" element={<UpdateVinyldisc />} />
         <Route path="/details-vinyldisc/:id" element={<DetailsVinyls />} />
+        <Route path="/vinyldisc/myposts" element={<MyPost />} />
+        
         
       </Routes>
       <Toaster position="top-center" reverseOrder={false} />

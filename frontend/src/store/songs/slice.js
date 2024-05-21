@@ -6,6 +6,7 @@ import axios from "axios";
 const initialState = {
   allsongs: [],
   songid: null,
+  favoriteid:[],
   status: "idle",
   error: null,
 };
@@ -83,6 +84,35 @@ export const deleteSong = createAsyncThunk(
     }
   }
 );
+
+export const addFavorite = createAsyncThunk(
+  "songs/addFavorite",
+  async (song) => {
+    try {
+      const response = await axios.post(
+        `${VITE_URL_API}/Favorite/addFavorite`,
+        song
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+);
+
+export const getFavoriteAsync = createAsyncThunk(
+  "favorite/getFavorite",
+  async (id) => {
+    try {
+      const response = await axios.get(
+        `${VITE_URL_API}/Favorite/getFavorites/${id}`
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+);
   
 export const songsSlice = createSlice({
   name: "songs",
@@ -151,6 +181,30 @@ export const songsSlice = createSlice({
       .addCase(deleteSong.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(addFavorite.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(addFavorite.fulfilled, (state) => {
+        state.status = "succeeded";
+        toast.success("Successfully!");
+      })
+      .addCase(addFavorite.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+        toast.error("This didn't work.");
+      })
+      .addCase(getFavoriteAsync.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(getFavoriteAsync.fulfilled, (state, action) => {
+        state.status = "succeeded";
+        state.favoriteid = action.payload;
+      })
+      .addCase(getFavoriteAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+        toast.error("This didn't work.");
       })
   },
 });

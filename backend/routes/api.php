@@ -45,3 +45,10 @@ Route::group(['prefix' => 'VinylDisc', 'controller' => VinylDiscController::clas
     Route::get('/GetVinylByUserId/{id}', 'getVinylDiscsByUserId');
 });
 
+Route::group(['prefix' => 'Favorite', 'controller' => SongController::class], function () {
+    Route::post('/addFavorite', 'addFavorite');
+    Route::delete('/removeFavorite', 'removeFavorite');
+    Route::get('/getFavorites/{id}', 'getFavorites');
+});
+
+
