@@ -6,11 +6,34 @@ import { useValidators } from "../../hooks/useValidators";
 export const Nav = () => {
     const { LogoutUser } = useUserActions();
     const user = useSelector((state) => state.users.auth.user);
-    const {isUserAuthenticated} = useValidators()
+    const {isUserAuthenticated, isUserRolUser,isUserRolAdmin, isUserRolProvider} = useValidators()
   return (
     <nav className="container-nav">
       <div className="user-info-nav">
         <div className="auth-nav">
+          <p><Link to="/">Home</Link></p>
+          {isUserRolUser() && (
+            <>
+           <Link>Songs</Link>
+           <Link>Playlists</Link>
+           <Link to='/song/favorites'>Favorites</Link>
+           <Link>Cart</Link>
+           </>
+          )}
+          {isUserRolAdmin() && (
+            <>
+           <Link>Solicitudes</Link>
+           <Link>Reportes</Link>
+           <Link to ='/song/song-register'>Add Song</Link>
+           </>
+          )}
+          {isUserRolProvider() && (
+            <>
+           <Link to = '/vinyldisc/myposts/'>My Posts</Link>
+           <Link>Requests</Link>
+           <Link to ='/vinyldisc/vinyldisc-register'>Add Vinyl</Link>
+           </>
+          )}
           {!isUserAuthenticated() && (
             <>
               <Link to="/user/user-register" className="item-nav sing-in">

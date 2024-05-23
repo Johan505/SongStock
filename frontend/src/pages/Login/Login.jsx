@@ -28,19 +28,7 @@ export const Login = () => {
 
   useEffect(() => {
     if (access_token) {
-      switch (user.role.rol) {
-        case "Admin":
-          navigate("/admin");
-          break;
-        case "User":
           navigate("/");
-          break;
-        case "Provider":
-          navigate("/provider");
-          break;
-        default:
-          break;
-      }
     }
   }, [access_token, user, navigate]);
 

@@ -32,7 +32,7 @@ Route::group(['prefix' => 'Song', 'controller' => SongController::class], functi
     Route::get('/GetAllSongs', 'getAllSongs');
     Route::post('/CreateSong', 'createSong');
     Route::get('/GetSongById/{id}', 'showSong');
-    Route::put('/UpdateSong/{id}', 'updateSong');
+    Route::post('/UpdateSong/{id}', 'updateSong');
     Route::delete('/DeleteSong/{id}', 'deleteSong');
 });
 
@@ -42,5 +42,13 @@ Route::group(['prefix' => 'VinylDisc', 'controller' => VinylDiscController::clas
     Route::get('/GetVinylById/{id}', 'showVinylDisc');
     Route::post('/UpdateVinylDisc/{id}', 'updateVinylDisc');
     Route::delete('/DeleteVinylDisc/{id}', 'deleteVinylDisc');
+    Route::get('/GetVinylByUserId/{id}', 'getVinylDiscsByUserId');
 });
+
+Route::group(['prefix' => 'Favorite', 'controller' => SongController::class], function () {
+    Route::post('/addFavorite', 'addFavorite');
+    Route::delete('/removeFavorite', 'removeFavorite');
+    Route::get('/getFavorites/{id}', 'getFavorites');
+});
+
 
