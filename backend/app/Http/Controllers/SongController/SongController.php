@@ -105,4 +105,10 @@ class SongController extends Controller
         $favorites->load('song');
         return $favorites;
     }
+
+    public function favoritebyid($id)
+    {
+        $favorites = Favorite::find($id);
+        return $favorites;
+    }
 }

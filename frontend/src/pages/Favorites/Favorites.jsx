@@ -1,42 +1,47 @@
 import { useSelector } from "react-redux";
-import { useSongActions } from "../../hooks/useSongActions"
+import { useSongActions } from "../../hooks/useSongActions";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Sound from "react-sound";
 const { VITE_URL_API_IMG } = import.meta.env;
 
 export const Favorites = () => {
-    const {getFavoriteSongUser} = useSongActions();
-    const [playingSong, setPlayingSong] = useState(null);
-    const user = useSelector((state) => state.users.auth.user);
-    const {favoriteid, status} = useSelector((state) => state.songs)
+  const { getFavoriteSongUser, addSongToFavorites } = useSongActions();
+  const [playingSong, setPlayingSong] = useState(null);
+  const user = useSelector((state) => state.users.auth.user);
+  const { favoriteid, status } = useSelector((state) => state.songs);
 
-    useEffect(() => {
-        getFavoriteSongUser(user.id);
-    },[])
+  useEffect(() => {
+    getFavoriteSongUser(user.id);
+  }, []);
 
-    if (!favoriteid || status === "loading")
-        return <div className="loader">Loading...</div>;
+  if (!favoriteid || status === "loading")
+    return <div className="loader">Loading...</div>;
 
-    console.log(favoriteid);
+  const handlePlayStop = (songId) => {
+    setPlayingSong(playingSong === songId ? null : songId);
+  };
 
-    const handlePlayStop = (songId) => {
-        if (playingSong === songId) {
-          setPlayingSong(null);
-        } else {
-          setPlayingSong(songId);
-        }
-      };
-    return (
-        <>
-        <p>favorites</p>
+  const handleAddToFavorites = async (songId) => {
+    const favoriteData = {
+      user_id: user.id,
+      song_id: songId,
+    };
+    await addSongToFavorites(favoriteData);
+    getFavoriteSongUser(user.id);
+  };
+  return (
+    <>
+      <p>favorites</p>
 
-        <div>
+      <div>
         {favoriteid.map((favorite) => (
           <div key={favorite.id}>
-              <img src={`${VITE_URL_API_IMG}${favorite.song.img}`} alt="Song Image" />
-              <p>{favorite.song.name}</p>
-              <p>{favorite.song.artist}</p>
+            <img
+              src={`${VITE_URL_API_IMG}${favorite.song.img}`}
+              alt="Song Image"
+            />
+            <p>{favorite.song.name}</p>
+            <p>{favorite.song.artist}</p>
             <button onClick={() => handlePlayStop(favorite.song.id)}>
               {playingSong === favorite.song.id ? "Stop" : "Play"}
             </button>
@@ -47,9 +52,12 @@ export const Favorites = () => {
                 onFinishedPlaying={() => setPlayingSong(null)}
               />
             )}
+            <button onClick={() => handleAddToFavorites(favorite.song.id)}>
+              borrar
+            </button>
           </div>
         ))}
       </div>
-        </>
-    )
-}
+    </>
+  );
+};

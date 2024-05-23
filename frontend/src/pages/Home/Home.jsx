@@ -28,6 +28,11 @@ export const Home = () => {
     setSplit(false);
   };
 
+  const refreshSongs = () => {
+    getAllSongs();
+    console.log('entre a refrescar');
+  };
+
   if (!allvinyls || vinylStatus === "loading")
     return <div className="loader">loading.....</div>;
 
@@ -54,7 +59,7 @@ export const Home = () => {
 
    
           {split ? (
-            <CardSong songs={allsongs} />
+            <CardSong songs={allsongs} refreshSongs={refreshSongs}/>
           ) : (
             <CardVinylDisc vinyls={allvinyls} />
           )}

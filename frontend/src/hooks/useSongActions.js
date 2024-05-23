@@ -36,12 +36,12 @@ export const useSongActions = () => {
     dispatch(deleteSong(id));
   };
 
-  const addSongToFavorites = (song) => {
-    dispatch(addFavorite(song));
+  const addSongToFavorites = async (song) => {
+    return dispatch(addFavorite(song));
   };
 
   const getFavoriteSongUser = (id) => {
-    dispatch(getFavoriteAsync(id));
+     dispatch(getFavoriteAsync(id));
   };
 
   return {

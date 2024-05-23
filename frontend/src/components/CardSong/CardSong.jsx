@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Sound from "react-sound";
 import { useValidators } from "../../hooks/useValidators";
@@ -6,18 +6,17 @@ import { useSongActions } from "../../hooks/useSongActions";
 import { useSelector } from "react-redux";
 const { VITE_URL_API_IMG } = import.meta.env;
 
-export const CardSong = ({ songs }) => {
+export const CardSong = ({ songs, refreshSongs  }) => {
   const { isUserAuthenticated } = useValidators();
-  const { addSongToFavorites } = useSongActions();
+  const { addSongToFavorites, getFavoriteSongUser} = useSongActions();
   const [playingSong, setPlayingSong] = useState(null);
   const user = useSelector((state) => state.users.auth.user);
+  const {favoriteid, status} = useSelector((state) => state.songs)
 
-  const [formData, setFormData] = useState({
-    id: null,
-    user_id: user.id,
-    song_id: "",
-  });
-
+  useEffect(() => {
+    getFavoriteSongUser(user.id);
+},[])
+  
   const handlePlayStop = (songId) => {
     if (playingSong === songId) {
       setPlayingSong(null);
@@ -26,13 +25,21 @@ export const CardSong = ({ songs }) => {
     }
   };
 
-  const handleAddToFavorites = (songId) => {
+  const handleAddToFavorites = async (songId) => {
     const favoriteData = {
       user_id: user.id,
       song_id: songId,
     };
-    addSongToFavorites(favoriteData);
+    await addSongToFavorites(favoriteData);
+    getFavoriteSongUser(user.id);
   };
+
+  const isFavorite = (songId) => {
+    return favoriteid.some(fav => fav.song.id === songId);
+  };
+      if ( !songs)
+        return <div className="loader">Loading...</div>;
+
 
   return (
     <div>
@@ -55,8 +62,8 @@ export const CardSong = ({ songs }) => {
                 onFinishedPlaying={() => setPlayingSong(null)}
               />
             )}
-            <button onClick={() => handleAddToFavorites(song.id)}>
-              Add to Favorites
+            <button onClick={() => handleAddToFavorites(song.id)} disabled={status === "loading" }>
+              {isFavorite(song.id) ? 'borrar de favs' : 'add'}
             </button>
           </div>
         ))}
