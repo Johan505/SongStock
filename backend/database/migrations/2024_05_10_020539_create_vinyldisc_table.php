@@ -24,8 +24,11 @@ return new class extends Migration
             $table->string('state');
             $table->string('condition');
             $table->string('observations');
+<<<<<<< HEAD
             $table->unsignedBigInteger('id_user');
             $table->foreign('id_user')->references('id')->on('users');
+=======
+>>>>>>> Santiago
             $table->timestamps();
         });
     }

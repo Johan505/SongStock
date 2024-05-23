@@ -6,7 +6,10 @@ import axios from "axios";
 const initialState = {
   allvinyls: [],
   vinylid: null,
+<<<<<<< HEAD
   vinyluser: [],
+=======
+>>>>>>> Santiago
   status: "idle",
   error: null,
 };
@@ -16,7 +19,10 @@ const { VITE_URL_API } = import.meta.env;
 export const registerVinylDiscAsync = createAsyncThunk(
   "vinyldisc/registerVinylDisc",
   async (vinyldiscData) => {
+<<<<<<< HEAD
     
+=======
+>>>>>>> Santiago
     try {
       const response = await axios.post(
         `${VITE_URL_API}/VinylDisc/CreateVinylDisc`,
@@ -72,6 +78,7 @@ export const getAllVinylDiscAsync = createAsyncThunk(
   }
 );
 
+<<<<<<< HEAD
 export const deleteVinylDisc = createAsyncThunk(
   "vinyldisc/deleteVinylDisc",
   async (id) => {
@@ -100,6 +107,8 @@ export const getVinylDiscByUser = createAsyncThunk(
   }
 );
 
+=======
+>>>>>>> Santiago
 export const vinyldiscsSlice = createSlice({
   name: "vinyldiscs",
   initialState,
@@ -153,6 +162,7 @@ export const vinyldiscsSlice = createSlice({
         state.status = "failed";
         state.error = action.error.message;
       })
+<<<<<<< HEAD
       .addCase(deleteVinylDisc.pending, (state) => {
         state.status = "loading";
       })
@@ -180,6 +190,8 @@ export const vinyldiscsSlice = createSlice({
         state.error = action.error.message;
         toast.error("This didn't work.");
       })
+=======
+>>>>>>> Santiago
   },
 });
 

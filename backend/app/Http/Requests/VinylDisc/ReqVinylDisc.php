@@ -32,8 +32,12 @@ class ReqVinylDisc extends FormRequest
             'description' => ['required', 'string'],
             'state' => ['required', 'string'],
             'condition' => ['required', 'string'],
+<<<<<<< HEAD
             'observations' => ['required', 'string'],
             'id_user' => ['required']
+=======
+            'observations' => ['required', 'string']
+>>>>>>> Santiago
         ];
     }
 

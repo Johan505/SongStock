@@ -6,11 +6,16 @@ import { useValidators } from "../../hooks/useValidators";
 export const Nav = () => {
     const { LogoutUser } = useUserActions();
     const user = useSelector((state) => state.users.auth.user);
+<<<<<<< HEAD
     const {isUserAuthenticated, isUserRolUser,isUserRolAdmin, isUserRolProvider} = useValidators()
+=======
+    const {isUserAuthenticated} = useValidators()
+>>>>>>> Santiago
   return (
     <nav className="container-nav">
       <div className="user-info-nav">
         <div className="auth-nav">
+<<<<<<< HEAD
           <p><Link to="/">Home</Link></p>
           {isUserRolUser() && (
             <>
@@ -34,6 +39,8 @@ export const Nav = () => {
            <Link to ='/vinyldisc/vinyldisc-register'>Add Vinyl</Link>
            </>
           )}
+=======
+>>>>>>> Santiago
           {!isUserAuthenticated() && (
             <>
               <Link to="/user/user-register" className="item-nav sing-in">

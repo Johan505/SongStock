@@ -2,7 +2,10 @@
 
 namespace App\Models\VinylDisc;
 
+<<<<<<< HEAD
 use App\Models\User\User;
+=======
+>>>>>>> Santiago
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -23,6 +26,7 @@ class VinylDisc extends Model
         'description',
         'state',
         'condition',
+<<<<<<< HEAD
         'observations',
         'id_user'
     ];
@@ -31,4 +35,8 @@ class VinylDisc extends Model
     {
         return $this->belongsTo(User::class, 'id_user');
     }
+=======
+        'observations'
+    ];
+>>>>>>> Santiago
 }

@@ -6,7 +6,10 @@ import axios from "axios";
 const initialState = {
   allsongs: [],
   songid: null,
+<<<<<<< HEAD
   favoriteid:[],
+=======
+>>>>>>> Santiago
   status: "idle",
   error: null,
 };
@@ -32,8 +35,13 @@ export const registerSongAsync = createAsyncThunk(
     "song/updateSong",
     async (formData) => {
       try {
+<<<<<<< HEAD
         const response = await axios.post(
           `${VITE_URL_API}/Song/UpdateSong/${formData.get("id")}`,
+=======
+        const response = await axios.put(
+          `${VITE_URL_API}/Song/UpdateSong/${formData.id}`,
+>>>>>>> Santiago
           formData
         );
         return response.data;
@@ -70,6 +78,7 @@ export const registerSongAsync = createAsyncThunk(
       }
     }
   );
+<<<<<<< HEAD
 
 export const deleteSong = createAsyncThunk(
   "songs/deleteSong",
@@ -113,6 +122,8 @@ export const getFavoriteAsync = createAsyncThunk(
     }
   }
 );
+=======
+>>>>>>> Santiago
   
 export const songsSlice = createSlice({
   name: "songs",
@@ -149,7 +160,11 @@ export const songsSlice = createSlice({
       })
       .addCase(getSongAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
+<<<<<<< HEAD
         state.songid = action.payload;
+=======
+        state.vinylid = action.payload;
+>>>>>>> Santiago
       })
       .addCase(getSongAsync.rejected, (state, action) => {
         state.status = "failed";
@@ -161,12 +176,17 @@ export const songsSlice = createSlice({
       })
       .addCase(getAllSongsAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
+<<<<<<< HEAD
         state.allsongs = action.payload;
+=======
+        state.allvinyls = action.payload;
+>>>>>>> Santiago
       })
       .addCase(getAllSongsAsync.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })
+<<<<<<< HEAD
       .addCase(deleteSong.pending, (state) => {
         state.status = "loading";
       })
@@ -206,6 +226,8 @@ export const songsSlice = createSlice({
         state.error = action.error.message;
         toast.error("This didn't work.");
       })
+=======
+>>>>>>> Santiago
   },
 });
 

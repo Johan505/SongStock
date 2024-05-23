@@ -22,6 +22,10 @@
          <env name="DB_CONNECTION" value="pgsql"/>
          <env name="DB_DATABASE" value="test"/>
          <env name="DB_USERNAME" value="postgres"/>
+<<<<<<< HEAD
          <env name="DB_PASSWORD" value="jmav1234"/>
+=======
+         <env name="DB_PASSWORD" value="12345"/>
+>>>>>>> Santiago
     </php>
 </phpunit>

@@ -28,7 +28,23 @@ export const Login = () => {
 
   useEffect(() => {
     if (access_token) {
+<<<<<<< HEAD
           navigate("/");
+=======
+      switch (user.role.rol) {
+        case "Admin":
+          navigate("/admin");
+          break;
+        case "User":
+          navigate("/");
+          break;
+        case "Provider":
+          navigate("/provider");
+          break;
+        default:
+          break;
+      }
+>>>>>>> Santiago
     }
   }, [access_token, user, navigate]);
 
