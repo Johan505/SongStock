@@ -48,13 +48,10 @@ export const FormSong = ({ action, song }) => {
   
         formDataToSend.append(key, formData[key]);
       }
-<<<<<<< HEAD
 
     // const formDataObject = Object.fromEntries(formDataToSend.entries());
 
     // console.log(formDataObject);
-=======
->>>>>>> Santiago
   
       const response = action === "Update" ? await updatesong(formDataToSend): await NewSong(formDataToSend);
       if (response.meta.requestStatus === "fulfilled") {
@@ -184,11 +181,7 @@ export const FormSong = ({ action, song }) => {
               type="submit"
               disabled={status === "loading"}
             >
-<<<<<<< HEAD
               {status === "loading" ? "Loading..." : "Add"}
-=======
-              {status === "loading" ? "Loading..." : "Sign up"}
->>>>>>> Santiago
             </button>
           </form>
         </div>

@@ -25,26 +25,6 @@ Route::group(['prefix' => 'Rol', 'controller' => RolController::class], function
 Route::group(['prefix' => 'User', 'controller' => UserController::class], function () {
     Route::post('/CreateUser', 'createUser');
     Route::post('/Login', 'loginUser');
-<<<<<<< HEAD
-=======
-});
-
-
-Route::group(['prefix' => 'Song', 'controller' => SongController::class], function () {
-    Route::get('/GetAllSongs', 'getAllSongs');
-    Route::post('/CreateSong', 'createSong');
-    Route::get('/GetSongById/{id}', 'showSong');
-    Route::put('/UpdateSong/{id}', 'updateSong');
-    Route::delete('/DeleteSong/{id}', 'deleteSong');
-});
-
-Route::group(['prefix' => 'VinylDisc', 'controller' => VinylDiscController::class], function () {
-    Route::get('/GetAllVinylDisc', 'getAllVinylDisc');
-    Route::post('/CreateVinylDisc', 'createVinylDisc');
-    Route::get('/GetVinylById/{id}', 'showVinylDisc');
-    Route::post('/UpdateVinylDisc/{id}', 'updateVinylDisc');
-    Route::delete('/DeleteVinylDisc/{id}', 'deleteVinylDisc');
->>>>>>> Santiago
 });
 
 

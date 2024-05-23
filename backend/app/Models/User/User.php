@@ -32,14 +32,11 @@ class User extends Authenticatable implements JWTSubject
         return $this->belongsTo(Rol::class, 'id_rol');
     }
 
-<<<<<<< HEAD
     public function vinyl()
     {
         return $this->hasMany(VinylDisc::class, 'id_user');
     }
 
-=======
->>>>>>> Santiago
     public function getJWTIdentifier()
     {
         return $this->getKey();

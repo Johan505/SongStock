@@ -7,10 +7,7 @@ export const FormVinyl = ({ action, vinyl }) => {
     const navigate = useNavigate()
     const { createVinylDisc, updatevini } = useVinylDiscActions();
     const { status } = useSelector((state) => state.vinyldiscs);
-<<<<<<< HEAD
     const user = useSelector((state) => state.users.auth.user);
-=======
->>>>>>> Santiago
   
     const [formData, setFormData] = useState({
       id: null,
@@ -25,10 +22,7 @@ export const FormVinyl = ({ action, vinyl }) => {
       state: "",
       condition: "",
       observations: "",
-<<<<<<< HEAD
       id_user:user.id,
-=======
->>>>>>> Santiago
     });
 
     useEffect(() => {
@@ -46,10 +40,7 @@ export const FormVinyl = ({ action, vinyl }) => {
           state: vinyl.state,
           condition: vinyl.condition,
           observations: vinyl.observations,
-<<<<<<< HEAD
           id_user: vinyl.id_user
-=======
->>>>>>> Santiago
         });
       }
     }, [action]);
