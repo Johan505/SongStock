@@ -2,6 +2,7 @@
 
 namespace App\Models\Song;
 
+use App\Models\Cart\Cart;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -22,4 +23,9 @@ class Song extends Model
         'img',
         'song'
     ];
+
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'song_id');
+    }
 }

@@ -12,7 +12,6 @@ export const MyPost = () =>{
         getvinyluser(user.id)
     },[])
 
-    console.log(vinyluser);
 
     if (!vinyluser || status === "loading")
         return <div className="loader">Loading...</div>;

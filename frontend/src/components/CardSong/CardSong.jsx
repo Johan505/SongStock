@@ -6,17 +6,19 @@ import { useSongActions } from "../../hooks/useSongActions";
 import { useSelector } from "react-redux";
 const { VITE_URL_API_IMG } = import.meta.env;
 
-export const CardSong = ({ songs, refreshSongs  }) => {
-  const { isUserAuthenticated } = useValidators();
-  const { addSongToFavorites, getFavoriteSongUser} = useSongActions();
+export const CardSong = ({ songs, refreshSongs }) => {
+  const { isUserAuthenticated, isUserRolUser } = useValidators();
+  const { addSongToFavorites, getFavoriteSongUser } = useSongActions();
   const [playingSong, setPlayingSong] = useState(null);
   const user = useSelector((state) => state.users.auth.user);
-  const {favoriteid, status} = useSelector((state) => state.songs)
+  const { favoriteid, status } = useSelector((state) => state.songs);
 
   useEffect(() => {
-    getFavoriteSongUser(user.id);
-},[])
-  
+    if (user) {
+      getFavoriteSongUser(user.id);
+    }
+  }, [user]);
+
   const handlePlayStop = (songId) => {
     if (playingSong === songId) {
       setPlayingSong(null);
@@ -35,11 +37,12 @@ export const CardSong = ({ songs, refreshSongs  }) => {
   };
 
   const isFavorite = (songId) => {
-    return favoriteid.some(fav => fav.song.id === songId);
+    return favoriteid.some((fav) => fav.song.id === songId);
   };
-      if ( !songs)
-        return <div className="loader">Loading...</div>;
 
+  if (!songs) {
+    return <div className="loader">Loading...</div>;
+  }
 
   return (
     <div>
@@ -62,9 +65,16 @@ export const CardSong = ({ songs, refreshSongs  }) => {
                 onFinishedPlaying={() => setPlayingSong(null)}
               />
             )}
-            <button onClick={() => handleAddToFavorites(song.id)} disabled={status === "loading" }>
-              {isFavorite(song.id) ? 'borrar de favs' : 'add'}
-            </button>
+            {isUserRolUser() && (
+              <>
+                <button
+                  onClick={() => handleAddToFavorites(song.id)}
+                  disabled={status === "loading"}
+                >
+                  {isFavorite(song.id) ? "borrar de favs" : "add"}
+                </button>
+              </>
+            )}
           </div>
         ))}
       </div>
