@@ -96,7 +96,6 @@ class SongController extends Controller
         }
     }
 
-
     public function getFavorites($id)
     {
         $favorites = Favorite::where('user_id', $id)

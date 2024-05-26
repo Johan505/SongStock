@@ -24,18 +24,24 @@ export const DetailsSong = () => {
         navigate('/')
   }
 
-  const addCart = async (song) => {
-    const songData = {
-      user_id: user.id,
-      song_id: song.id, 
-    };
-    await addSongToCart(songData)
-  };
+  // const addCart = async (song) => {
+  //   const songData = {
+  //     user_id: user.id,
+  //     song_id: song.id, 
+  //   };
+  //   await addSongToCart(songData)
+  // };
 
   if (!songid || status === "loading")
     return <div className="loader">Loading...</div>;
 
-
+  const handleAddSongToCart = async (songId) => {
+    const SongCartData = {
+      user_id: user.id,
+      song_id: songId,
+    };
+    await addSongToCart(SongCartData);
+  };
 
   return (
     <div className="song-details-container">
@@ -56,7 +62,7 @@ export const DetailsSong = () => {
         <div>
           {isUserRolUser() && (
               <button
-                  onClick={() => addCart(songid)}
+                  onClick={() => handleAddSongToCart(songid.id)}
                   disabled={status === "loading"}
                 >
                   Add Cart

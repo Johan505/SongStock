@@ -53,5 +53,8 @@ Route::group(['prefix' => 'Favorite', 'controller' => SongController::class], fu
 });
 
 Route::group(['prefix' => 'Cart', 'controller' => CartController::class], function () {
-    Route::post('/AddCart', 'addCart');
+    Route::post('/AddCartSong', 'addCartSong');
+    Route::post('/AddCartVinyl', 'addCartVinyl');
+    Route::get('/GetCartSong/{id}', 'getCartSong');
+    Route::get('/GetCartVinyl/{id}', 'getCartVinyl');
 });

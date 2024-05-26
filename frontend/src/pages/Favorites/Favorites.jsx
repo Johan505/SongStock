@@ -10,8 +10,6 @@ export const Favorites = () => {
   const user = useSelector((state) => state.users.auth.user);
   const { favoriteid, status } = useSelector((state) => state.songs);
 
-  console.log(favoriteid);
-
   useEffect(() => {
     getFavoriteSongUser(user.id);
   }, []);

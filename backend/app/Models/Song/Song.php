@@ -2,7 +2,8 @@
 
 namespace App\Models\Song;
 
-use App\Models\Cart\Cart;
+use App\Models\CartSong\CartSong;
+use App\Models\CartVinyl\CartVinyl;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,8 +25,13 @@ class Song extends Model
         'song'
     ];
 
-    public function carts()
+    public function cartsong()
     {
-        return $this->hasMany(Cart::class, 'song_id');
+        return $this->hasMany(CartSong::class, 'song_id');
+    }
+
+    public function cartsvinyl()
+    {
+        return $this->hasMany(CartVinyl::class, 'vinyl_id');
     }
 }

@@ -1,22 +1,22 @@
 <?php
 
-namespace App\Models\Cart;
+namespace App\Models\CartVinyl;
 
-use App\Models\Song\Song;
 use App\Models\User\User;
 use App\Models\VinylDisc\VinylDisc;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Cart extends Model
+class CartVinyl extends Model
 {
     use HasFactory;
 
-    protected $table = 'cart';
+    protected $table = 'cartvinyl';
 
     protected $fillable = [
         'user_id',
-        'song_id',
+        'vinyl_id',
+        'quantity'
     ];
 
     public function user()
@@ -24,8 +24,8 @@ class Cart extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function song()
+    public function vinyldisc()
     {
-        return $this->belongsTo(Song::class, 'song_id');
+        return $this->belongsTo(VinylDisc::class, 'vinyl_id');
     }
 }
