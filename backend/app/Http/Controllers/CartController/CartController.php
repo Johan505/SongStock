@@ -86,4 +86,16 @@ public function addCartVinyl(Request $request)
         $vinylcart = CartVinyl::find($id);
         return $vinylcart;
     }
+
+    public function deleteCartSong($id)
+    {
+        $song = CartSong::destroy($id);
+        return $id;
+    }
+
+    public function deleteCartVinyl($id)
+    {
+        $song = CartVinyl::destroy($id);
+        return $id;
+    }
 }

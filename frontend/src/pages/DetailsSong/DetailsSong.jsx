@@ -59,6 +59,7 @@ export const DetailsSong = () => {
         <p className="song-mb">Size: {songid.mb} MB</p>
         <p className="song-kbps">Quality: {songid.kbps} kbps</p>
         <p className="song-gender">Genre: {songid.gender}</p>
+        <p className="song-price">Price: {songid.price}</p>
         <div>
           {isUserRolUser() && (
               <button

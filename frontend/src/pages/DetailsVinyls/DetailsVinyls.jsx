@@ -46,6 +46,11 @@ export const DetailsVinyls = () => {
       </div>
       <div className="vinyl-info-container">
         <h2 className="vinyl-name">{vinylid.name}</h2>
+        <p className="vinyl-amount">Amount: {vinylid.amount}</p>
+        <p className="vinyl-description">Description: {vinylid.description}</p>
+        <p className="vinyl-state">State: {vinylid.state} kbps</p>
+        <p className="vinyl-condition">Condition: {vinylid.condition}</p>
+        <p className="vinyl-Observations">Observartions: {vinylid.observations}</p>
         <p className="vinyl-price">{vinylid.price}</p>
         <div>
         {isUserRolUser() && (

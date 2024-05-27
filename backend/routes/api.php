@@ -57,4 +57,6 @@ Route::group(['prefix' => 'Cart', 'controller' => CartController::class], functi
     Route::post('/AddCartVinyl', 'addCartVinyl');
     Route::get('/GetCartSong/{id}', 'getCartSong');
     Route::get('/GetCartVinyl/{id}', 'getCartVinyl');
+    Route::delete('/DeleteCartSong/{id}', 'deleteCartSong');
+    Route::delete('/DeleteCartVinyl/{id}', 'deleteCartVinyl');
 });

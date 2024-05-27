@@ -4,9 +4,10 @@ import axios from "axios";
 
 // Inicializa el estado usando la función authLocal
 const initialState = {
+  cartid: null,
   status: "idle",
-  songid: [],
-  vinylid: [],
+  allcartsongs:[],
+  allcartvinyls:[],
   error: null,
 };
 
@@ -70,6 +71,34 @@ export const getVinylCartAsync = createAsyncThunk(
     }
   }
 );
+
+export const deleteCartSong = createAsyncThunk(
+  "cart/deleteCartSong",
+  async (id) => {
+    try {
+      const response = await axios.delete(
+        `${VITE_URL_API}/Cart/DeleteCartSong/${id}`
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+);
+
+export const deleteCartVinyl = createAsyncThunk(
+  "cart/deleteCartVinyl",
+  async (id) => {
+    try {
+      const response = await axios.delete(
+        `${VITE_URL_API}/Cart/DeleteCartVinyl/${id}`
+      );
+      return response.data;
+    } catch (error) {
+      throw new Error(error.message);
+    }
+  }
+);
   
 export const cartSlice = createSlice({
   name: "cart",
@@ -106,7 +135,7 @@ export const cartSlice = createSlice({
       })
       .addCase(getSongCartAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.songid = action.payload
+        state.allcartsongs = action.payload
       })
       .addCase(getSongCartAsync.rejected, (state, action) => {
         state.status = "failed";
@@ -117,9 +146,34 @@ export const cartSlice = createSlice({
       })
       .addCase(getVinylCartAsync.fulfilled, (state, action) => {
         state.status = "succeeded";
-        state.vinylid = action.payload
+        state.allcartvinyls = action.payload
       })
       .addCase(getVinylCartAsync.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(deleteCartSong.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteCartSong.fulfilled, (state) => {
+        state.status = "succeeded";
+      })
+      .addCase(deleteCartSong.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.error.message;
+      })
+      .addCase(deleteCartVinyl.pending, (state) => {
+        state.status = "loading";
+      })
+      .addCase(deleteCartVinyl.fulfilled, (state) => {
+        state.status = "succeeded";
+      //  const id = action.payload;
+      //   const filteredVinyl = state.allcartvinyls.filter(vinyldiscs=>{
+      //     return vinyldiscs.id!=id
+      //   });
+      //   state.allvinyls=[...filteredVinyl]
+       })
+      .addCase(deleteCartVinyl.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
       })

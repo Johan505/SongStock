@@ -54,6 +54,7 @@ export const CardSong = ({ songs, refreshSongs }) => {
               <img src={`${VITE_URL_API_IMG}${song.img}`} alt="Song Image" />
               <p>{song.name}</p>
               <p>{song.artist}</p>
+              <p>{song.price}</p>
             </Link>
             <button onClick={() => handlePlayStop(song.id)}>
               {playingSong === song.id ? "Stop" : "Play"}

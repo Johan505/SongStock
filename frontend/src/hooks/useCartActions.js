@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { addSongCart, addVinylCart, getSongCartAsync, getVinylCartAsync } from "../store/cart/slice";
+import { addSongCart, addVinylCart, getSongCartAsync, getVinylCartAsync, deleteCartSong, deleteCartVinyl } from "../store/cart/slice";
 
 export const useCartActions = () => {
   const dispatch = useDispatch();
@@ -20,10 +20,20 @@ export const useCartActions = () => {
   dispatch(getVinylCartAsync(id));
 };
 
+const dropCartSong = async (id) => {
+  return dispatch(deleteCartSong(id));
+};
+
+const dropCartVinyl = async (id) => {
+  return dispatch(deleteCartVinyl(id));
+};
+
   return {
     addSongToCart,
     addVinylToCart,
     getCartSongUser,
-    getCartVinylUser
+    getCartVinylUser,
+    dropCartSong,
+    dropCartVinyl
   };
 };

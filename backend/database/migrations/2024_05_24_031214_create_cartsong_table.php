@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('song_id');
-            $table->integer('quantity');
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('song_id')->references('id')->on('songs');
             $table->timestamps();

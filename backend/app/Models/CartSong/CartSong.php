@@ -15,8 +15,7 @@ class CartSong extends Model
 
     protected $fillable = [
         'user_id',
-        'song_id',
-        'quantity'
+        'song_id'
     ];
 
     public function user()

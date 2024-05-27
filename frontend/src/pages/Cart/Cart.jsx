@@ -4,9 +4,12 @@ import { useCartActions } from "../../hooks/useCartActions";
 const { VITE_URL_API_IMG } = import.meta.env;
 
 export const Cart = () => {
-  const { getCartSongUser, getCartVinylUser } = useCartActions();
+  const { getCartSongUser, getCartVinylUser, dropCartSong, dropCartVinyl } =
+    useCartActions();
   const user = useSelector((state) => state.users.auth.user);
-  const { vinylid, songid, status } = useSelector((state) => state.cart);
+  const { allcartvinyls, allcartsongs, status } = useSelector(
+    (state) => state.cart
+  );
 
   const [quantities, setQuantities] = useState({});
 
@@ -16,85 +19,96 @@ export const Cart = () => {
   }, []);
 
   useEffect(() => {
-    if (songid) {
-      const initialQuantities = songid.reduce((acc, song) => {
-        acc[song.id] = song.quantity;
-        return acc;
-      }, {});
-      setQuantities(initialQuantities);
-    }
-  }, [songid]);
-
-  const handleQuantityChange = (songId, action) => {
-    setQuantities((prevQuantities) => {
-      const newQuantities = { ...prevQuantities };
-      if (action === "increase") {
-        newQuantities[songId] += 1;
-      } else if (action === "decrease" && newQuantities[songId] > 1) {
-        newQuantities[songId] -= 1;
-      }
-      return newQuantities;
+    const initialQuantities = {};
+    allcartvinyls.forEach((vinyl) => {
+      initialQuantities[vinyl.id] = vinyl.quantity;
     });
+    setQuantities(initialQuantities);
+  }, [allcartvinyls]);
+
+  const deleteCartSong = async (id) => {
+    await dropCartSong(id);
+    getCartSongUser(user.id);
   };
 
-  if (!songid || status === "loading")
+  const deleteCartVinyl = async (id) => {
+    await dropCartVinyl(id);
+    getCartVinylUser(user.id);
+  };
+
+  const incrementQuantity = (id) => {
+    setQuantities((prev) => ({ ...prev, [id]: (prev[id] || 1) + 1 }));
+  };
+
+  const decrementQuantity = (id) => {
+    setQuantities((prev) => ({
+      ...prev,
+      [id]: prev[id] > 1 ? prev[id] - 1 : 1,
+    }));
+  };
+
+  const calculateSubtotal = () => {
+    let total = 0;
+    allcartsongs.forEach((song) => {
+      total += parseFloat(song.song.price);
+    });
+    allcartvinyls.forEach((vinyl) => {
+      total +=
+        parseFloat(vinyl.vinyldisc.price) *
+        (quantities[vinyl.id] || vinyl.quantity);
+    });
+    return total;
+  };
+
+  if (!allcartsongs || status === "loading")
     return <div className="loader">Loading...</div>;
 
   return (
     <>
       <p>Cart</p>
       <div>
-        {songid.map((song) => (
+        {allcartsongs.map((song) => (
           <div key={song.id}>
             <img src={`${VITE_URL_API_IMG}${song.song.img}`} alt="Song Image" />
             <p>{song.song.name}</p>
             <p>{song.song.artist}</p>
-            <div className="quantity-control">
-              <button onClick={() => handleQuantityChange(song.id, "decrease")}>
-                -
-              </button>
-              <input
-                type="number"
-                value={
-                  quantities[song.id] !== undefined ? quantities[song.id] : 1
-                }
-                readOnly
-              />
-              <button onClick={() => handleQuantityChange(song.id, "increase")}>
-                +
-              </button>
-            </div>
             <p>{song.song.price}</p>
-            <button>Delete</button>
+            <button onClick={() => deleteCartSong(song.id)}>Delete</button>
           </div>
         ))}
       </div>
       <div>
-      {vinylid.map((song) => (
-          <div key={song.id}>
-            <img src={`${VITE_URL_API_IMG}${song.song.img}`} alt="Song Image" />
-            <p>{song.song.name}</p>
-            <p>{song.song.artist}</p>
-            <div className="quantity-control">
-              <button onClick={() => handleQuantityChange(song.id, "decrease")}>
+        {allcartvinyls.map((vinyl) => (
+          <div key={vinyl.id}>
+            <img
+              src={`${VITE_URL_API_IMG}${vinyl.vinyldisc.img}`}
+              alt="Vinyl Image"
+            />
+            <p>{vinyl.vinyldisc.name}</p>
+            <p>{vinyl.vinyldisc.artist}</p>
+            <p>{vinyl.vinyldisc.price}</p>
+            <div>
+              <button
+                onClick={() => decrementQuantity(vinyl.id)}
+                disabled={quantities[vinyl.id] <= 1}
+              >
                 -
               </button>
               <input
                 type="number"
-                value={
-                  quantities[song.id] !== undefined ? quantities[song.id] : 1
-                }
+                value={quantities[vinyl.id] || vinyl.quantity}
                 readOnly
               />
-              <button onClick={() => handleQuantityChange(song.id, "increase")}>
-                +
-              </button>
+              <button onClick={() => incrementQuantity(vinyl.id)}>+</button>
             </div>
-            <p>{song.song.price}</p>
-            <button>Delete</button>
+            <button onClick={() => deleteCartVinyl(vinyl.id)}>Delete</button>
           </div>
         ))}
       </div>
+      <div>
+        <p>Subtotal: ${calculateSubtotal().toFixed(2)}</p>
+      </div>
+      <button>Buy</button>
     </>
   );
 };
