@@ -30,7 +30,6 @@ export const Home = () => {
 
   const refreshSongs = () => {
     getAllSongs();
-    console.log('entre a refrescar');
   };
 
   if (!allvinyls || vinylStatus === "loading")

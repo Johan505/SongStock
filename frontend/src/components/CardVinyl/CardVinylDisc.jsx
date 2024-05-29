@@ -10,6 +10,7 @@ export const CardVinylDisc = ({ vinyls }) => {
               <img src={`${VITE_URL_API_IMG}${vinyl.img}`} alt="Vinyldisc Image" />
               <p>{vinyl.name}</p>
               <p>{vinyl.artist}</p>
+              <p>{vinyl.price}</p>
             </Link>
           </div>
         ))}

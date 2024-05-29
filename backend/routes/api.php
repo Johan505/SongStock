@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CartController\CartController;
 use App\Http\Controllers\RolController\RolController;
 use App\Http\Controllers\SongController\SongController;
 use App\Http\Controllers\UserController\UserController;
@@ -51,4 +52,11 @@ Route::group(['prefix' => 'Favorite', 'controller' => SongController::class], fu
     Route::get('/getFavorites/{id}', 'getFavorites');
 });
 
-
+Route::group(['prefix' => 'Cart', 'controller' => CartController::class], function () {
+    Route::post('/AddCartSong', 'addCartSong');
+    Route::post('/AddCartVinyl', 'addCartVinyl');
+    Route::get('/GetCartSong/{id}', 'getCartSong');
+    Route::get('/GetCartVinyl/{id}', 'getCartVinyl');
+    Route::delete('/DeleteCartSong/{id}', 'deleteCartSong');
+    Route::delete('/DeleteCartVinyl/{id}', 'deleteCartVinyl');
+});

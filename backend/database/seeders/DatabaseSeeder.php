@@ -10,7 +10,8 @@ class DatabaseSeeder extends Seeder
 
     private $seeders = [
         // Otros seeders aquí
-        RolSeeder::class
+        RolSeeder::class,
+        UserSeeder::class
     ];
 
 

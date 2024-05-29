@@ -17,7 +17,7 @@ export const Nav = () => {
            <Link>Songs</Link>
            <Link>Playlists</Link>
            <Link to='/song/favorites'>Favorites</Link>
-           <Link>Cart</Link>
+           <Link to='/cart'>Cart</Link>
            </>
           )}
           {isUserRolAdmin() && (
