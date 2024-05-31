@@ -13,8 +13,15 @@ import { DetailsVinyls } from "../pages/DetailsVinyls/DetailsVinyls";
 import { MyPost } from "../pages/MyPost/MyPost";
 import { Favorites } from "../pages/Favorites/Favorites";
 import { Cart } from "../pages/Cart/Cart";
+import { useSelector } from "react-redux";
+import { useSongActions } from "../hooks/useSongActions";
+import { useEffect } from "react";
+import { useValidators } from "../hooks/useValidators";
+import { Player } from "../components/Player/Player";
 
 export const AppRouter = () => {
+  const { isUserAuthenticated } = useValidators();
+
   return (
     <>
       <Nav />
@@ -38,6 +45,7 @@ export const AppRouter = () => {
         <Route path="/vinyldisc/myposts" element={<MyPost />} />
         <Route path="/cart" element={<Cart />} />
       </Routes>
+      {isUserAuthenticated() && <Player />}
       <Toaster position="top-center" reverseOrder={false} />
     </>
   );

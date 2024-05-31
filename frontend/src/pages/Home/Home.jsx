@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { CardSong } from "../../components/CardSong/CardSong";
 import { CardVinylDisc } from "../../components/CardVinyl/CardVinylDisc";
 import { useValidators } from "../../hooks/useValidators";
+import { Player } from "../../components/Player/Player";
 
 export const Home = () => {
   const { getAllVinylDisc } = useVinylDiscActions();
@@ -12,8 +13,12 @@ export const Home = () => {
   const { allvinyls, vinylStatus } = useSelector((state) => state.vinyldiscs);
   const { allsongs, songStatus } = useSelector((state) => state.songs);
   const [split, setSplit] = useState(true);
-  const { isUserAuthenticated, isUserRolUser, isUserRolProvider,isUserRolAdmin } =
-    useValidators();
+  const {
+    isUserAuthenticated,
+    isUserRolUser,
+    isUserRolProvider,
+    isUserRolAdmin,
+  } = useValidators();
 
   useEffect(() => {
     getAllVinylDisc();
@@ -40,29 +45,26 @@ export const Home = () => {
 
   return (
     <div>
+      <div className="buttons-actions-profile">
+        <button
+          className={`button-post-profile ${split ? "active" : "inactive"}`}
+          onClick={handlePostProfile}
+        >
+          songs
+        </button>
+        <button
+          className={`button-like-profile ${!split ? "active" : "inactive"}`}
+          onClick={handleLikeProfile}
+        >
+          vinyl
+        </button>
+      </div>
 
-        <div className="buttons-actions-profile">
-          <button
-            className={`button-post-profile ${split ? "active" : "inactive"}`}
-            onClick={handlePostProfile}
-          >
-            songs
-          </button>
-          <button
-            className={`button-like-profile ${!split ? "active" : "inactive"}`}
-            onClick={handleLikeProfile}
-          >
-            vinyl
-          </button>
-        </div>
-
-   
-          {split ? (
-            <CardSong songs={allsongs} refreshSongs={refreshSongs}/>
-          ) : (
-            <CardVinylDisc vinyls={allvinyls} />
-          )}
-   
+      {split ? (
+        <CardSong songs={allsongs} refreshSongs={refreshSongs} />
+      ) : (
+        <CardVinylDisc vinyls={allvinyls} />
+      )}
 
     </div>
   );
