@@ -6,14 +6,18 @@ export const SongControl = ({ audio }) => {
   const [currentTime, setCurrentTime] = useState(0);
 
   useEffect(() => {
+    if (!audio.current) return;
+
     const handleTimeUpdate = () => {
-      setCurrentTime(audio.current.currentTime);
+      setCurrentTime(audio.current?.currentTime);
     };
 
     audio.current.addEventListener("timeupdate", handleTimeUpdate);
 
     return () => {
-      audio.current.removeEventListener("timeupdate", handleTimeUpdate);
+      if (audio.current) {
+        audio.current.removeEventListener("timeupdate", handleTimeUpdate);
+      }
     };
   }, [audio]);
 
@@ -38,8 +42,8 @@ export const SongControl = ({ audio }) => {
         max={duration}
         min={0}
         onChange={(e) => {
-          audio.current.currentTime = e.target.value;
-          setCurrentTime(e.target.value);
+          audio.current.currentTime = Number(e.target.value);
+          setCurrentTime(Number(e.target.value));
         }}
         className="w-[400px]"
       />
