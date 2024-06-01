@@ -1,0 +1,22 @@
+.container-login {
+  display: flex;
+  justify-content: center;
+}
+
+.form-login {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  background-color: #181414;
+  border-radius: 10px;
+}
+
+.sing-in-login {
+  color: #fff;
+  margin-top: 5em;
+  font-weight: 600;
+  .info-login{
+    text-align: center;
+    margin-bottom: 1em;
+  }
+}

@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useUserActions } from "../../hooks/useUserActions";
 import { useValidators } from "../../hooks/useValidators";
+import "./Module.scss"
 
 export const Nav = () => {
     const { LogoutUser } = useUserActions();
@@ -11,27 +12,27 @@ export const Nav = () => {
     <nav className="container-nav">
       <div className="user-info-nav">
         <div className="auth-nav">
-          <p><Link to="/">Home</Link></p>
+          <Link to="/" className="item-nav">Home</Link>
           {isUserRolUser() && (
             <>
-           <Link>Songs</Link>
-           <Link>Playlists</Link>
-           <Link to='/song/favorites'>Favorites</Link>
-           <Link to='/cart'>Cart</Link>
+           <Link className="item-nav">Songs</Link>
+           <Link className="item-nav">Playlists</Link>
+           <Link to='/song/favorites' className="item-nav">Favorites</Link>
+           <Link to='/cart' className="item-nav">Cart</Link>
            </>
           )}
           {isUserRolAdmin() && (
             <>
-           <Link>Solicitudes</Link>
-           <Link>Reportes</Link>
-           <Link to ='/song/song-register'>Add Song</Link>
+           <Link className="item-nav">Solicitudes</Link>
+           <Link className="item-nav">Reportes</Link>
+           <Link to ='/song/song-register' className="item-nav">Add Song</Link>
            </>
           )}
           {isUserRolProvider() && (
             <>
-           <Link to = '/vinyldisc/myposts/'>My Posts</Link>
-           <Link>Requests</Link>
-           <Link to ='/vinyldisc/vinyldisc-register'>Add Vinyl</Link>
+           <Link to = '/vinyldisc/myposts/' className="item-nav">My Posts</Link>
+           <Link className="item-nav">Requests</Link>
+           <Link to ='/vinyldisc/vinyldisc-register' className="item-nav">Add Vinyl</Link>
            </>
           )}
           {!isUserAuthenticated() && (

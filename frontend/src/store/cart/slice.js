@@ -51,6 +51,7 @@ export const getSongCartAsync = createAsyncThunk(
       const response = await axios.get(
         `${VITE_URL_API}/Cart/GetCartSong/${id}`
       );
+      console.log('usu',response.data);
       return response.data;
     } catch (error) {
       throw new Error(error.message);

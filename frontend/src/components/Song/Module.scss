@@ -1,0 +1,29 @@
+.container-register {
+  display: flex;
+
+  .form-register {
+    display: flex;
+    flex-direction: column;
+    width: 25em;
+  }
+}
+
+.form-input {
+  background-color: #1f1f22;
+  margin-bottom: 15px;
+  padding: 5px;
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+}
+
+// .form-input {
+//     color: #fff;
+//     background-color: #1f1f22;
+//     border: none;
+//     outline: none;
+//     margin-bottom: 2em;
+//     padding: 1em;
+//     border-radius: 8px;
+//     width: 100%;
+//   }

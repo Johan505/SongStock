@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { useValidators } from "../../hooks/useValidators";
 import { useCartActions } from "../../hooks/useCartActions";
 const { VITE_URL_API_IMG } = import.meta.env;
+import "./Module.scss";
 
 export const DetailsSong = () => {
   const { id } = useParams();
@@ -20,14 +21,14 @@ export const DetailsSong = () => {
   }, [id]);
 
   const deleteSong = (id) => {
-        dropSong(id)
-        navigate('/')
-  }
+    dropSong(id);
+    navigate("/");
+  };
 
   // const addCart = async (song) => {
   //   const songData = {
   //     user_id: user.id,
-  //     song_id: song.id, 
+  //     song_id: song.id,
   //   };
   //   await addSongToCart(songData)
   // };
@@ -45,40 +46,39 @@ export const DetailsSong = () => {
 
   return (
     <div className="song-details-container">
-      <div className="song-image-container">
+      <div className="details-son-card">
         <img
           src={`${VITE_URL_API_IMG}${songid.img}`}
           alt="Song Image"
           className="song-image"
         />
-      </div>
-      <div className="song-info-container">
-        <h2 className="song-name">{songid.name}</h2>
-        <p className="song-artist">Artist: {songid.artist}</p>
-        <p className="song-duration">Duration: {songid.duration}</p>
-        <p className="song-mb">Size: {songid.mb} MB</p>
-        <p className="song-kbps">Quality: {songid.kbps} kbps</p>
-        <p className="song-gender">Genre: {songid.gender}</p>
-        <p className="song-price">Price: {songid.price}</p>
-        <div>
-          {isUserRolUser() && (
+
+        <div className="song-info-container">
+          <h2 className="song-name">{songid.name}</h2>
+          <p className="song-artist">Artist: {songid.artist}</p>
+          <p className="song-duration">Duration: {songid.duration}</p>
+          <p className="song-mb">Size: {songid.mb} MB</p>
+          <p className="song-kbps">Quality: {songid.kbps} kbps</p>
+          <p className="song-gender">Genre: {songid.gender}</p>
+          <p className="song-price">Price: {songid.price}</p>
+          <div>
+            {isUserRolUser() && (
               <button
-                  onClick={() => handleAddSongToCart(songid.id)}
-                  disabled={status === "loading"}
-                >
-                  Add Cart
+                onClick={() => handleAddSongToCart(songid.id)}
+                disabled={status === "loading"}
+              >
+                Add Cart
+              </button>
+            )}
+            {isUserRolAdmin() && (
+              <>
+                <button>
+                  <Link to={`/song/song-edit/${songid.id}`}>Edit</Link>
                 </button>
-          )}
-          {isUserRolAdmin() && (
-            <>
-            <button>
-              <Link to={`/song/song-edit/${songid.id}`}>Edit</Link>
-            </button>
-            <button onClick={()=>deleteSong(songid.id)}>
-                Delete
-            </button>
-            </>
-          )}
+                <button onClick={() => deleteSong(songid.id)}>Delete</button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

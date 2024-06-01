@@ -1,40 +1,57 @@
 .container-player {
-    display: flex;
-    justify-content: space-between;
-    background-color: #000;
-    color: #fff;
-    padding: 10px;
-    width: 100%;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  background-color: #000;
+  color: #fff;
+  padding: 10px;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  box-sizing: border-box;
+}
+
+.info-song {
+  display: flex;
+
+  img {
+    width: 4em;
+    height: 4em;
+    object-fit: cover;
+    object-position: center;
   }
-  
-  .info-song{
-    display: flex;
+}
 
-    img{
-        width: 4em;
-        height: 4em;
-        object-fit: cover;
-        object-position: center;
-    }
-  }
+.actions-player {
+  display: flex;
+  justify-content: center;
+  width: 20em;
+  margin-bottom: 10px;
+}
 
+.icon-player {
+  color: #fff;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
 
-  .music-control{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 20em;
-  }
-  
+.uwu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 2.5em;
+  height: 2.5em;
+  margin: 0 1em;
+  background-color: #fff;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
 
-
-
-  
-
-
-
-
+.music-control {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 20em;
+}

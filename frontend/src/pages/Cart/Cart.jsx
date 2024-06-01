@@ -2,6 +2,7 @@ import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useCartActions } from "../../hooks/useCartActions";
 const { VITE_URL_API_IMG } = import.meta.env;
+import "./Module.scss";
 
 export const Cart = () => {
   const { getCartSongUser, getCartVinylUser, dropCartSong, dropCartVinyl } =
@@ -63,12 +64,14 @@ export const Cart = () => {
   if (!allcartsongs || status === "loading")
     return <div className="loader">Loading...</div>;
 
+console.log(allcartsongs)
+
   return (
     <>
       <p>Cart</p>
-      <div>
+      <div className="container-cards">
         {allcartsongs.map((song) => (
-          <div key={song.id}>
+          <div key={song.id} className="card-cart">
             <img src={`${VITE_URL_API_IMG}${song.song.img}`} alt="Song Image" />
             <p>{song.song.name}</p>
             <p>{song.song.artist}</p>
@@ -77,9 +80,9 @@ export const Cart = () => {
           </div>
         ))}
       </div>
-      <div>
+      <div className="container-cards">
         {allcartvinyls.map((vinyl) => (
-          <div key={vinyl.id}>
+          <div key={vinyl.id} className="card-cart">
             <img
               src={`${VITE_URL_API_IMG}${vinyl.vinyldisc.img}`}
               alt="Vinyl Image"

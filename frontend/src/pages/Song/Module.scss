@@ -1,0 +1,14 @@
+.container-register {
+  display: flex;
+  justify-content: center;
+  color: #fff;
+  margin-top: 2em;
+
+  .register-song {
+    padding: 1em;
+    background-color: #181414;
+    border-radius: 10px;
+    border: 1px solid rgba(31, 31, 34, 1);
+    width: 30em;
+  }
+}

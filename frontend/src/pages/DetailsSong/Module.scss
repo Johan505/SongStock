@@ -1,0 +1,26 @@
+.song-details-container {
+  display: flex;
+  justify-content: center;
+
+  .details-son-card {
+    display: flex;
+    border-radius: 10px;
+    flex-direction: column;
+  
+    background-color: #181414;
+    color: #fff;
+  }
+
+  img {
+    width: 15em;
+    height: 15em;
+    object-fit: cover;
+    margin: 1em;
+    object-position: center;
+    border-radius: 10px;
+  }
+}
+
+.song-info-container{
+    margin: 1em;
+}

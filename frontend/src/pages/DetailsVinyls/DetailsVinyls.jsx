@@ -19,13 +19,12 @@ export const DetailsVinyls = () => {
     searchid(id);
   }, [id]);
   const deleteVinyl = (id) => {
-        dropVinylDisc(id)
-        navigate('/')
-  }
+    dropVinylDisc(id);
+    navigate("/");
+  };
 
   if (!vinylid || status === "loading")
     return <div className="loader">Loading...</div>;
-
 
   const handleAddVinylToCart = async (vinylId) => {
     const VinylCartData = {
@@ -36,41 +35,46 @@ export const DetailsVinyls = () => {
   };
 
   return (
-    <div className="vinyl-details-container">
-      <div className="vinyl-image-container">
+    <div className="song-details-container">
+      <div className="details-son-card">
         <img
           src={`${VITE_URL_API_IMG}${vinylid.img}`}
           alt="Vinyl Image"
           className="vinyl-image"
         />
-      </div>
-      <div className="vinyl-info-container">
-        <h2 className="vinyl-name">{vinylid.name}</h2>
-        <p className="vinyl-amount">Amount: {vinylid.amount}</p>
-        <p className="vinyl-description">Description: {vinylid.description}</p>
-        <p className="vinyl-state">State: {vinylid.state} kbps</p>
-        <p className="vinyl-condition">Condition: {vinylid.condition}</p>
-        <p className="vinyl-Observations">Observartions: {vinylid.observations}</p>
-        <p className="vinyl-price">{vinylid.price}</p>
-        <div>
-        {isUserRolUser() && (
+
+        <div className="vinyl-info-container">
+          <h2 className="vinyl-name">{vinylid.name}</h2>
+          <p className="vinyl-amount">Amount: {vinylid.amount}</p>
+          <p className="vinyl-description">
+            Description: {vinylid.description}
+          </p>
+          <p className="vinyl-state">State: {vinylid.state} kbps</p>
+          <p className="vinyl-condition">Condition: {vinylid.condition}</p>
+          <p className="vinyl-Observations">
+            Observartions: {vinylid.observations}
+          </p>
+          <p className="vinyl-price">{vinylid.price}</p>
+          <div>
+            {isUserRolUser() && (
               <button
-                  onClick={() => handleAddVinylToCart(vinylid.id)}
-                  disabled={status === "loading"}
-                >
-                  Add Cart
+                onClick={() => handleAddVinylToCart(vinylid.id)}
+                disabled={status === "loading"}
+              >
+                Add Cart
+              </button>
+            )}
+            {isUserRolProvider() && (
+              <>
+                <button>
+                  <Link to={`/vinyldisc/vinyldisc-edit/${vinylid.id}`}>
+                    Edit
+                  </Link>
                 </button>
-          )}
-          {isUserRolProvider() && (
-            <>
-            <button>
-              <Link to={`/vinyldisc/vinyldisc-edit/${vinylid.id}`}>Edit</Link>
-            </button>
-            <button onClick={()=>deleteVinyl(vinylid.id)}>
-                Delete
-            </button>
-            </>
-          )}
+                <button onClick={() => deleteVinyl(vinylid.id)}>Delete</button>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>

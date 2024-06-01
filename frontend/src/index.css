@@ -1,4 +1,10 @@
-body,p,h1{
+body{
     margin: 0;
     pad: 0;
+    background-color: #09090a;
+}
+
+p,h1{
+    margin: 0;
+    padding: 0;
 }
